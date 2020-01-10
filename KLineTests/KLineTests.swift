@@ -30,5 +30,10 @@ class KLineTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testDecodeToResponse() {
+        assert(rsp != nil, "解析失败")
+        print(rsp)
+    }
 
 }

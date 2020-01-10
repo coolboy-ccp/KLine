@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D0AA9BA23C30D5800BC6513 /* TestJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D14DE2123C303F400EF30C1 /* TestJson.swift */; };
+		9D0AA9BC23C30F1700BC6513 /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BB23C30F1700BC6513 /* KLineView.swift */; };
+		9D0AA9BE23C316EC00BC6513 /* KLineTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */; };
+		9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9C323C333B800BC6513 /* KLData.swift */; };
+		9D187BAD23C6CFB500CDDBDA /* KLLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */; };
 		9D7492CE23BF3DE50078A6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */; };
 		9D7492D023BF3DE50078A6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */; };
 		9D7492D223BF3DE50078A6C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492D123BF3DE50078A6C5 /* ViewController.swift */; };
@@ -14,6 +19,10 @@
 		9D7492D723BF3DE90078A6C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D7492D623BF3DE90078A6C5 /* Assets.xcassets */; };
 		9D7492DA23BF3DE90078A6C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D7492D823BF3DE90078A6C5 /* LaunchScreen.storyboard */; };
 		9D7492E523BF3DE90078A6C5 /* KLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492E423BF3DE90078A6C5 /* KLineTests.swift */; };
+		9D74943E23BF5A040078A6C5 /* KLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D74943D23BF5A040078A6C5 /* KLNode.swift */; };
+		9D74944023BF5AAE0078A6C5 /* KLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D74943F23BF5AAE0078A6C5 /* KLineLayer.swift */; };
+		9DFABE6423C425B000702FB1 /* KLQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFABE6323C425B000702FB1 /* KLQueue.swift */; };
+		9DFABE6623C4266500702FB1 /* KLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFABE6523C4266500702FB1 /* KLConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D0AA9BB23C30F1700BC6513 /* KLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineView.swift; sourceTree = "<group>"; };
+		9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineTable.swift; sourceTree = "<group>"; };
+		9D0AA9C323C333B800BC6513 /* KLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLData.swift; sourceTree = "<group>"; };
+		9D14DE2123C303F400EF30C1 /* TestJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJson.swift; sourceTree = "<group>"; };
+		9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLLayout.swift; sourceTree = "<group>"; };
 		9D7492CA23BF3DE50078A6C5 /* KLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +52,10 @@
 		9D7492E023BF3DE90078A6C5 /* KLineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KLineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7492E423BF3DE90078A6C5 /* KLineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineTests.swift; sourceTree = "<group>"; };
 		9D7492E623BF3DE90078A6C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D74943D23BF5A040078A6C5 /* KLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLNode.swift; sourceTree = "<group>"; };
+		9D74943F23BF5AAE0078A6C5 /* KLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineLayer.swift; sourceTree = "<group>"; };
+		9DFABE6323C425B000702FB1 /* KLQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLQueue.swift; sourceTree = "<group>"; };
+		9DFABE6523C4266500702FB1 /* KLConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +97,7 @@
 		9D7492CC23BF3DE50078A6C5 /* KLine */ = {
 			isa = PBXGroup;
 			children = (
+				9D7492EF23BF45A70078A6C5 /* KLine */,
 				9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */,
 				9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */,
 				9D7492D123BF3DE50078A6C5 /* ViewController.swift */,
@@ -97,6 +116,22 @@
 				9D7492E623BF3DE90078A6C5 /* Info.plist */,
 			);
 			path = KLineTests;
+			sourceTree = "<group>";
+		};
+		9D7492EF23BF45A70078A6C5 /* KLine */ = {
+			isa = PBXGroup;
+			children = (
+				9D74943D23BF5A040078A6C5 /* KLNode.swift */,
+				9D74943F23BF5AAE0078A6C5 /* KLineLayer.swift */,
+				9D0AA9BB23C30F1700BC6513 /* KLineView.swift */,
+				9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */,
+				9D14DE2123C303F400EF30C1 /* TestJson.swift */,
+				9D0AA9C323C333B800BC6513 /* KLData.swift */,
+				9DFABE6323C425B000702FB1 /* KLQueue.swift */,
+				9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */,
+				9DFABE6523C4266500702FB1 /* KLConfig.swift */,
+			);
+			path = KLine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +235,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0AA9BE23C316EC00BC6513 /* KLineTable.swift in Sources */,
+				9D74943E23BF5A040078A6C5 /* KLNode.swift in Sources */,
 				9D7492D223BF3DE50078A6C5 /* ViewController.swift in Sources */,
 				9D7492CE23BF3DE50078A6C5 /* AppDelegate.swift in Sources */,
+				9DFABE6423C425B000702FB1 /* KLQueue.swift in Sources */,
+				9DFABE6623C4266500702FB1 /* KLConfig.swift in Sources */,
+				9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */,
 				9D7492D023BF3DE50078A6C5 /* SceneDelegate.swift in Sources */,
+				9D74944023BF5AAE0078A6C5 /* KLineLayer.swift in Sources */,
+				9D0AA9BA23C30D5800BC6513 /* TestJson.swift in Sources */,
+				9D187BAD23C6CFB500CDDBDA /* KLLayout.swift in Sources */,
+				9D0AA9BC23C30F1700BC6513 /* KLineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +407,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SMLL9MTR8D;
 				INFOPLIST_FILE = KLine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -371,7 +416,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccp.KLine.KLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -380,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SMLL9MTR8D;
 				INFOPLIST_FILE = KLine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -388,7 +434,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccp.KLine.KLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
