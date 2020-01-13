@@ -81,7 +81,7 @@ struct KLVertical {
     fileprivate static let zero = KLVertical(height: 0, topMargin: 0, padding: 0, volTableHeight: 0, topInset: 0, bottomInset: 0, volInset: 0, bottomMargin: 0, volBase: 0)
     
     fileprivate static func portrait(height: CGFloat) -> KLVertical {
-        return KLVertical(height: height, topMargin: 20, padding: 20, volTableHeight: 70, topInset: 20, bottomInset: 20, volInset: 20, bottomMargin: 0, volBase: 10)
+        return KLVertical(height: height, topMargin: 20, padding: 20, volTableHeight: 70, topInset: 20, bottomInset: 20, volInset: 20, bottomMargin: 0, volBase: 0)
     }
     
     fileprivate static func landscape(height: CGFloat) -> KLVertical {
@@ -117,8 +117,8 @@ struct KLVertical {
        |   |<-padding->|   | <--line
        |_ _|           |_ _|
          |               |
-         |drew           |
-      |______width______|_|_|___________
+         |               |
+      |______width_____|_|_|___________
                           |gap
  */
 

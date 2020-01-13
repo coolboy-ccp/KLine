@@ -30,7 +30,7 @@ class KLineView: UIView {
         return KLineTable(frame: bounds)
     }()
     
-    private var klayers = [KLineLayer]() {
+    private var klayers = [CAShapeLayer]() {
         didSet {
             for old in oldValue {
                 old.removeFromSuperlayer()
@@ -47,17 +47,17 @@ class KLineView: UIView {
     
     private var nodes: [KLNode] = [] {
         didSet {
-            klayers = nodes.map {
-                return KLineLayer.oneLayer(node: $0)
+            var layers = [CAShapeLayer]()
+            for node in nodes {
+                layers.append(contentsOf: KLineLayer.layers(node: node))
             }
+            klayers = layers
         }
     }
     
     init(frame: CGRect, datasource: [KLData]) {
         super.init(frame: frame)
         kl = KLLayout.portrait(height: frame.height)
-//        update(datasource: datasource)
-//        update(frame: frame)
         queue = KLQueue(source: datasource)
         totalNodesCount = datasource.count
         addSubview(table)
@@ -91,7 +91,7 @@ class KLineView: UIView {
     private func draw() {
         queue.extract(from: currentIdx)
         nodes = queue.nodes
-        table.update(firstNode: nodes.first, lastNode: nodes.last)
+        table.update(first: queue.current.first, last: queue.current.last, bottom: queue.smallMA, top: queue.bigMA, maRatio: queue.maRatio)
     }
     
 //    func update(frame: CGRect) {

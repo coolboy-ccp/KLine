@@ -18,32 +18,54 @@ extension CGPoint {
 }
 
 
+extension CGFloat {
+    func yTransfer(bottom: CGFloat, ratio: CGFloat) -> CGFloat {
+        return kl.vertical.maYBase - (self - bottom) * ratio
+    }
+}
+
 struct KLNode {
     
     let idx: Int
     let color: UIColor
-    let time: String
+//    let maRatio: CGFloat
+//    let maBottom: CGFloat
+    let isTop: Bool
+    let isBottom: Bool
+    let start: Int
+    let end: Int
+    let data: KLData
     
+    private(set) var topPoint: CGPoint = .zero
+    private(set) var bottomPoint: CGPoint = .zero
     private(set) var maPoints: [CGPoint] = []
     private(set) var volPoints: [CGPoint] = []
-    private(set) var yCoordinates: [String] = []
     
-    
-    init(data: KLData, width: CGFloat, maRatio: CGFloat, volRatio: CGFloat, maBottom: CGFloat, volBottom: CGFloat) {
+    init(data: KLData, width: CGFloat, maRatio: CGFloat, volRatio: CGFloat, maBottom: CGFloat, volBottom: CGFloat, maTop: CGFloat, start: Int, end: Int) {
         self.color = data.close >= data.open ? .KLGrow : .KLFall
         self.idx = data.idx
+//        self.maRatio = maRatio
+//        self.maBottom = maBottom
+        self.isBottom = maBottom == data.bottom
+        self.isTop = maTop == data.top
+        self.start = start
+        self.data = data
+        self.end = end
         let x = width - CGFloat(idx + 1) * kl.unit.width
-        self.time = DateFormatter.coordinateX.string(from: Date(timeIntervalSince1970: TimeInterval(data.time)))
+        self.topPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.top, maBottom, maRatio))
+        self.bottomPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.bottom, maBottom, maRatio))
         self.volPoints = volPoints(data: data, x: x, volRatio: volRatio, volBottom: volBottom)
         self.maPoints = maPoints(data: data, x: x, maRatio: maRatio, maBottom: maBottom)
-        self.yCoordinates = yCoordinates(maRatio: maRatio, maBottom: maBottom)
+    }
+    
+    
+    private func yTransfer(_ value: CGFloat, _ maBottom: CGFloat, _ maRatio: CGFloat) -> CGFloat {
+        return value.yTransfer(bottom: maBottom, ratio: maRatio)
     }
     
     private func maPoints(data: KLData, x: CGFloat, maRatio: CGFloat, maBottom: CGFloat) -> [CGPoint] {
-        let open = CGPoint(x: x, y: kl.vertical.maYBase - (data.open - maBottom) * maRatio)
-        let high = CGPoint(x: x + kl.unit.gap, y: kl.vertical.maYBase - (data.top - maBottom) * maRatio)
-        let low = CGPoint(x: x + kl.unit.gap, y: kl.vertical.maYBase - (data.bottom - maBottom) * maRatio)
-        let closeTmp = CGPoint(x: x, y: kl.vertical.maYBase - (data.close - maBottom) * maRatio)
+        let open = CGPoint(x: x, y: yTransfer(data.open, maBottom, maRatio))
+        let closeTmp = CGPoint(x: x, y: yTransfer(data.close, maBottom, maRatio))
         let close = data.open == data.close ? CGPoint(x: closeTmp.x, y: closeTmp.y + 0.5) : closeTmp
         
         let openPt = close.y > open.y ? open : close
@@ -51,14 +73,14 @@ struct KLNode {
         return [
             openPt,
             openPt.move(x: kl.unit.gap),
-            high,
-            high.move(x: kl.unit.drew),
+            topPoint,
+            topPoint.move(x: kl.unit.drew),
             openPt.move(x: kl.unit.drew + kl.unit.gap),
             openPt.move(x: kl.unit.line),
             closePT.move(x: kl.unit.line),
             closePT.move(x: kl.unit.drew + kl.unit.gap),
-            low.move(x: kl.unit.drew),
-            low,
+            bottomPoint.move(x: kl.unit.drew),
+            bottomPoint,
             closePT.move(x: kl.unit.gap),
             closePT,
         ]
@@ -72,17 +94,6 @@ struct KLNode {
             vol.move(x: kl.unit.line, y: kl.vertical.volYbase - vol.y),
             vol.move(y: kl.vertical.volYbase - vol.y)
         ]
-    }
-    
-    private func yCoordinates(maRatio: CGFloat, maBottom: CGFloat) -> [String] {
-        let topYValue = (kl.vertical.maHeight + kl.vertical.topInset) / maRatio + maBottom
-        let bottomYValue = maBottom - kl.vertical.bottomInset / maRatio
-        if Int.numberOfGridLines < 1 { return [] }
-        let distance = topYValue - bottomYValue
-        let padding = distance / CGFloat(Int.numberOfGridLines + 1)
-        return (1 ... .numberOfGridLines).map {
-            return String(format: "%.2f", topYValue - padding * CGFloat($0))
-        } + [String(format: "%.2f", bottomYValue)]
     }
 }
 

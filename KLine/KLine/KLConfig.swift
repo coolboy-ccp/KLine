@@ -49,11 +49,13 @@ extension UIColor {
     static let KLMA3 = UIColor.blue
     static let coordinateY = UIColor.gray
     static let coordinateX = UIColor.gray
+    static let topBottom = UIColor.black
 }
 
 extension UIFont {
     static let coordinateY = UIFont.systemFont(ofSize: 11)
     static let coordinateX = UIFont.systemFont(ofSize: 14)
+    static let topBottom = UIFont.systemFont(ofSize: 11)
 }
 
 extension DateFormatter {

@@ -15,6 +15,7 @@ class KLQueue {
     var smallMA: KLData = .huge
     var bigVol: CGFloat = 0
     var smallVol: CGFloat = 0
+    var maRatio: CGFloat = 0
     
     var current: [KLData] = []
     private var total: [KLData] = []
@@ -67,10 +68,10 @@ class KLQueue {
     }
     
     var nodes: [KLNode] {
-        let maRatio: CGFloat = kl.vertical.maHeight / (bigMA.top - smallMA.bottom)
+        maRatio = kl.vertical.maHeight / (bigMA.top - smallMA.bottom)
         let volRatio: CGFloat = (kl.vertical.volHeight - kl.vertical.volBase) / (bigVol - smallVol)
         return current.map {
-            return KLNode(data: $0, width: size.width, maRatio: maRatio, volRatio: volRatio, maBottom: smallMA.bottom, volBottom: smallVol)
+            return KLNode(data: $0, width: size.width, maRatio: maRatio, volRatio: volRatio, maBottom: smallMA.bottom, volBottom: smallVol, maTop: bigMA.top, start: current.first!.idx, end: current.last!.idx)
         }
     }
             
