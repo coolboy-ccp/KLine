@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class KLQueue {
     var bigMA: KLData = .zero
     var smallMA: KLData = .huge

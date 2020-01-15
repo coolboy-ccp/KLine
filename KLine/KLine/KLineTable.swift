@@ -15,15 +15,11 @@ class KLineTable: UIView {
     private var bottom: KLData!
     private var first: KLData!
     private var last: KLData!
-    
     private var maRatio: CGFloat = 0
-    
     private var yPoints: [CGFloat] = []
     private var xLayer: CAShapeLayer?
     private var yLayer: CAShapeLayer?
-    
-    private var yNoChange: Bool = false
-    
+    private var yNoChange: Bool = false    
     
     //table-------------------------
     private func drawTable() {
@@ -72,7 +68,7 @@ class KLineTable: UIView {
         let pth = CGMutablePath()
         let yValues = yCoordinates()
         for (idx, point) in yPoints.enumerated() {
-            let subPath = CGMutablePath.path(text: yValues[idx], font: .coordinateY, extPoint: CGPoint(x: 2, y: -point + 2))
+            let subPath = yValues[idx].path(font: .coordinateY, point: CGPoint(x: 2, y: -point + 2))
             pth.addPath(subPath)
         }
         if self.yLayer == nil {
@@ -85,8 +81,8 @@ class KLineTable: UIView {
     //x-------------------------
     private func drawXPoints() {
         let extPoint = CGPoint(x: 0, y: -(kl.vertical.maTableHeight + kl.vertical.padding + kl.vertical.topMargin))
-        let pth = CGMutablePath.path(text: last.timeStr, font: .coordinateX, extPoint: extPoint)
-        let pth1 = CGMutablePath.path(text: first.timeStr, font: .coordinateX, extPoint: CGPoint(x: frame.width - pth.boundingBox.width - 5, y: extPoint.y))
+        let pth = last.timeStr.path(font: .coordinateX, point: extPoint)
+        let pth1 = last.timeStr.path(font: .coordinateX, point: CGPoint(x: frame.width - pth.boundingBox.width - 5, y: extPoint.y))
         pth.addPath(pth1)
         let ext = (kl.vertical.padding - pth.boundingBox.height) / 2.0
         if self.xLayer == nil {
@@ -138,34 +134,35 @@ extension CAShapeLayer {
     }
 }
 
-extension CGMutablePath {
+extension String {
     /*
-       * extPoint.y需要取负值，因为镜像
-       */
-      static func path(text: String, font: UIFont, extPoint: CGPoint) -> CGMutablePath {
-          let attr = NSAttributedString(string: text, attributes: [.font : font])
-          let line = CTLineCreateWithAttributedString(attr)
-          let runs = CTLineGetGlyphRuns(line) as! [CTRun]
-          let letters = CGMutablePath()
-          for run in runs {
-              let attr = CTRunGetAttributes(run) as NSDictionary
-              let font = attr[kCTFontAttributeName as String] as! CTFont
-              let count = CTRunGetGlyphCount(run)
-              var paths = [CGPath]()
-              for index in 0 ..< count
-              {
-                  let range = CFRangeMake(index, 1)
-                  var glyph = CGGlyph()
-                  CTRunGetGlyphs(run, range, &glyph)
-                  var position = CGPoint()
-                  CTRunGetPositions(run, range, &position)
-                  if let letterPath = CTFontCreatePathForGlyph(font, glyph, nil) {
-                      let transform = CGAffineTransform(translationX: position.x + extPoint.x, y: position.y + extPoint.y)
-                      letters.addPath(letterPath, transform: transform)
-                      paths.append(letterPath)
-                  }
-              }
-          }
-          return letters
-      }
+    * point.y需要取负值，因为镜像
+    */
+
+    func path(font: UIFont, point: CGPoint) -> CGMutablePath {
+        let attr = NSAttributedString(string: self, attributes: [.font : font])
+        let line = CTLineCreateWithAttributedString(attr)
+        let runs = CTLineGetGlyphRuns(line) as! [CTRun]
+        let letters = CGMutablePath()
+        for run in runs {
+            let attr = CTRunGetAttributes(run) as NSDictionary
+            let font = attr[kCTFontAttributeName as String] as! CTFont
+            let count = CTRunGetGlyphCount(run)
+            var paths = [CGPath]()
+            for index in 0 ..< count
+            {
+                let range = CFRangeMake(index, 1)
+                var glyph = CGGlyph()
+                CTRunGetGlyphs(run, range, &glyph)
+                var position = CGPoint()
+                CTRunGetPositions(run, range, &position)
+                if let letterPath = CTFontCreatePathForGlyph(font, glyph, nil) {
+                    let transform = CGAffineTransform(translationX: position.x + point.x, y: position.y + point.y)
+                    letters.addPath(letterPath, transform: transform)
+                    paths.append(letterPath)
+                }
+            }
+        }
+        return letters
+    }
 }

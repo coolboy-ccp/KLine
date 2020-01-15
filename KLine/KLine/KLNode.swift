@@ -17,24 +17,16 @@ extension CGPoint {
     }
 }
 
-
-extension CGFloat {
-    func yTransfer(bottom: CGFloat, ratio: CGFloat) -> CGFloat {
-        return kl.vertical.maYBase - (self - bottom) * ratio
-    }
-}
-
 struct KLNode {
     
     let idx: Int
     let color: UIColor
-//    let maRatio: CGFloat
-//    let maBottom: CGFloat
     let isTop: Bool
     let isBottom: Bool
     let start: Int
     let end: Int
     let data: KLData
+    let x: CGFloat
     
     private(set) var topPoint: CGPoint = .zero
     private(set) var bottomPoint: CGPoint = .zero
@@ -44,26 +36,24 @@ struct KLNode {
     init(data: KLData, width: CGFloat, maRatio: CGFloat, volRatio: CGFloat, maBottom: CGFloat, volBottom: CGFloat, maTop: CGFloat, start: Int, end: Int) {
         self.color = data.close >= data.open ? .KLGrow : .KLFall
         self.idx = data.idx
-//        self.maRatio = maRatio
-//        self.maBottom = maBottom
         self.isBottom = maBottom == data.bottom
         self.isTop = maTop == data.top
         self.start = start
         self.data = data
         self.end = end
-        let x = width - CGFloat(idx + 1) * kl.unit.width
+        self.x = width - CGFloat(idx + 1) * kl.unit.width
         self.topPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.top, maBottom, maRatio))
         self.bottomPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.bottom, maBottom, maRatio))
         self.volPoints = volPoints(data: data, x: x, volRatio: volRatio, volBottom: volBottom)
-        self.maPoints = maPoints(data: data, x: x, maRatio: maRatio, maBottom: maBottom)
+        self.maPoints = maPoints(data: data, maRatio: maRatio, maBottom: maBottom)
     }
     
     
     private func yTransfer(_ value: CGFloat, _ maBottom: CGFloat, _ maRatio: CGFloat) -> CGFloat {
-        return value.yTransfer(bottom: maBottom, ratio: maRatio)
+        return kl.vertical.maYBase - (value - maBottom) * maRatio
     }
     
-    private func maPoints(data: KLData, x: CGFloat, maRatio: CGFloat, maBottom: CGFloat) -> [CGPoint] {
+    private func maPoints(data: KLData, maRatio: CGFloat, maBottom: CGFloat) -> [CGPoint] {
         let open = CGPoint(x: x, y: yTransfer(data.open, maBottom, maRatio))
         let closeTmp = CGPoint(x: x, y: yTransfer(data.close, maBottom, maRatio))
         let close = data.open == data.close ? CGPoint(x: closeTmp.x, y: closeTmp.y + 0.5) : closeTmp

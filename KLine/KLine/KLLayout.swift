@@ -10,22 +10,28 @@ import UIKit
 
 
 struct KLLayout {
+    enum Direction {
+        case portrait
+        case landspace
+    }
+    
     let vertical: KLVertical
     var unit: KLUnit
+    var direction: Direction = .portrait
     
-    static let inital = KLLayout(vertical: .zero, unit: .zero)
+    static let inital = KLLayout(height: 0)
     
-    static func portrait(height: CGFloat, line: CGFloat = 5) -> KLLayout {
-        let v = KLVertical.portrait(height: height)
-        let unit = KLUnit.portait(line: line)
-        return KLLayout(vertical: v, unit: unit)
+    init(height: CGFloat, direction: Direction = .portrait) {
+        switch direction {
+        case .portrait:
+            self.vertical = KLVertical.portrait(height: height)
+            self.unit = KLUnit.portait(line: 5)
+        case .landspace:
+            self.vertical = KLVertical.landscape(height: height)
+            self.unit = KLUnit.landscape(line: 10)
+        }
     }
     
-    static func landscape(height: CGFloat, line: CGFloat = 5) -> KLLayout {
-        let v = KLVertical.landscape(height: height)
-        let unit = KLUnit.landscape(line: line)
-        return KLLayout(vertical: v, unit: unit)
-    }
 }
 
 /*

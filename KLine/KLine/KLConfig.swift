@@ -50,12 +50,21 @@ extension UIColor {
     static let coordinateY = UIColor.gray
     static let coordinateX = UIColor.gray
     static let topBottom = UIColor.black
+    static let markLine = UIColor.red
+    static let bgColor = UIColor.white
 }
 
 extension UIFont {
-    static let coordinateY = UIFont.systemFont(ofSize: 11)
-    static let coordinateX = UIFont.systemFont(ofSize: 14)
-    static let topBottom = UIFont.systemFont(ofSize: 11)
+    static let coordinateY = UIFont.systemFont(ofSize: 10)
+    static let coordinateX = UIFont.systemFont(ofSize: 12)
+    static let topBottom = UIFont.systemFont(ofSize: 10)
+    static let markLine = UIFont.systemFont(ofSize: 10)
+}
+
+extension CGFloat {
+    static let markLineWidth: CGFloat = 0.8
+    static let boxInsetH: CGFloat = 2
+    static let boxInsetV: CGFloat = 3
 }
 
 extension DateFormatter {
@@ -66,5 +75,9 @@ extension DateFormatter {
         self.init()
         self.dateFormat = format
     }
+}
+
+extension Array where Element == String {
+    static let KLineTitles: [String] = ["5分", "15分", "30分", "1小时", "6小时", "1天"]
 }
 

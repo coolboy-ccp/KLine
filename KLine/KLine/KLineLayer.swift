@@ -47,12 +47,9 @@ class KLineLayer {
         let isLeft = node.idx - node.start < node.end - node.idx
         let str = isLeft ? String(format: "%.2f->", node.data.bottom) : String(format: "<-%.2f", node.data.bottom)
         let layer = CAShapeLayer(at: .zero, color: .topBottom)
-        let path = CGMutablePath.path(text: str, font: .topBottom, extPoint: CGPoint(x: node.bottomPoint.x - kl.unit.width / 2, y: -node.bottomPoint.y))
-        let mPath = CGMutablePath()
-        let moveX = isLeft ? -path.boundingBox.width : kl.unit.width / 2
-        let transform = CGAffineTransform(translationX: moveX, y: -path.boundingBox.height)
-        mPath.addPath(path, transform: transform)
-        layer.path = mPath
+        let path = str.path(font: .topBottom, point: CGPoint(x: node.bottomPoint.x - kl.unit.width / 2, y: -node.bottomPoint.y))
+        let moveX = isLeft ? -path.boundingBox.width : kl.unit.width / 2    
+        layer.path = path.move(offset: CGPoint(x: moveX, y: -path.boundingBox.height))
         return layer
     }
         
@@ -61,12 +58,21 @@ class KLineLayer {
         let isLeft = node.idx - node.start < node.end - node.idx
         let str = isLeft ? String(format: "%.2f->", node.data.top) : String(format: "<-%.2f", node.data.top)
         let layer = CAShapeLayer(at: .zero, color: .topBottom)
-        let path = CGMutablePath.path(text: str, font: .topBottom, extPoint: CGPoint(x: node.topPoint.x, y: -node.topPoint.y))
+        let path = str.path(font: .topBottom, point: CGPoint(x: node.topPoint.x, y: -node.topPoint.y))
         let mPath = CGMutablePath()
         let moveX = isLeft ? -path.boundingBox.width : 0
         let transform = CGAffineTransform(translationX: moveX, y: path.boundingBox.height / 2)
         mPath.addPath(path, transform: transform)
         layer.path = mPath
         return layer
+    }
+}
+
+extension CGMutablePath {
+    func move(offset: CGPoint) -> CGMutablePath {
+        let mPath = CGMutablePath()
+        let transform = CGAffineTransform(translationX: offset.x, y: offset.y)
+        mPath.addPath(self, transform: transform)
+        return mPath
     }
 }

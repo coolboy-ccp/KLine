@@ -11,9 +11,9 @@
 		9D0AA9BC23C30F1700BC6513 /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BB23C30F1700BC6513 /* KLineView.swift */; };
 		9D0AA9BE23C316EC00BC6513 /* KLineTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */; };
 		9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9C323C333B800BC6513 /* KLData.swift */; };
+		9D0CBB3523CD64AD009B263E /* KLineHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0CBB3423CD64AD009B263E /* KLineHeader.swift */; };
 		9D187BAD23C6CFB500CDDBDA /* KLLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */; };
 		9D7492CE23BF3DE50078A6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */; };
-		9D7492D023BF3DE50078A6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */; };
 		9D7492D223BF3DE50078A6C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492D123BF3DE50078A6C5 /* ViewController.swift */; };
 		9D7492D523BF3DE50078A6C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D7492D323BF3DE50078A6C5 /* Main.storyboard */; };
 		9D7492D723BF3DE90078A6C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D7492D623BF3DE90078A6C5 /* Assets.xcassets */; };
@@ -39,11 +39,11 @@
 		9D0AA9BB23C30F1700BC6513 /* KLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineView.swift; sourceTree = "<group>"; };
 		9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineTable.swift; sourceTree = "<group>"; };
 		9D0AA9C323C333B800BC6513 /* KLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLData.swift; sourceTree = "<group>"; };
+		9D0CBB3423CD64AD009B263E /* KLineHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineHeader.swift; sourceTree = "<group>"; };
 		9D14DE2123C303F400EF30C1 /* TestJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJson.swift; sourceTree = "<group>"; };
 		9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLLayout.swift; sourceTree = "<group>"; };
 		9D7492CA23BF3DE50078A6C5 /* KLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9D7492D123BF3DE50078A6C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9D7492D423BF3DE50078A6C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9D7492D623BF3DE90078A6C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,9 +97,9 @@
 		9D7492CC23BF3DE50078A6C5 /* KLine */ = {
 			isa = PBXGroup;
 			children = (
+				9D14DE2123C303F400EF30C1 /* TestJson.swift */,
 				9D7492EF23BF45A70078A6C5 /* KLine */,
 				9D7492CD23BF3DE50078A6C5 /* AppDelegate.swift */,
-				9D7492CF23BF3DE50078A6C5 /* SceneDelegate.swift */,
 				9D7492D123BF3DE50078A6C5 /* ViewController.swift */,
 				9D7492D323BF3DE50078A6C5 /* Main.storyboard */,
 				9D7492D623BF3DE90078A6C5 /* Assets.xcassets */,
@@ -125,11 +125,11 @@
 				9D74943F23BF5AAE0078A6C5 /* KLineLayer.swift */,
 				9D0AA9BB23C30F1700BC6513 /* KLineView.swift */,
 				9D0AA9BD23C316EC00BC6513 /* KLineTable.swift */,
-				9D14DE2123C303F400EF30C1 /* TestJson.swift */,
 				9D0AA9C323C333B800BC6513 /* KLData.swift */,
 				9DFABE6323C425B000702FB1 /* KLQueue.swift */,
 				9D187BAC23C6CFB500CDDBDA /* KLLayout.swift */,
 				9DFABE6523C4266500702FB1 /* KLConfig.swift */,
+				9D0CBB3423CD64AD009B263E /* KLineHeader.swift */,
 			);
 			path = KLine;
 			sourceTree = "<group>";
@@ -239,10 +239,10 @@
 				9D74943E23BF5A040078A6C5 /* KLNode.swift in Sources */,
 				9D7492D223BF3DE50078A6C5 /* ViewController.swift in Sources */,
 				9D7492CE23BF3DE50078A6C5 /* AppDelegate.swift in Sources */,
+				9D0CBB3523CD64AD009B263E /* KLineHeader.swift in Sources */,
 				9DFABE6423C425B000702FB1 /* KLQueue.swift in Sources */,
 				9DFABE6623C4266500702FB1 /* KLConfig.swift in Sources */,
 				9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */,
-				9D7492D023BF3DE50078A6C5 /* SceneDelegate.swift in Sources */,
 				9D74944023BF5AAE0078A6C5 /* KLineLayer.swift in Sources */,
 				9D0AA9BA23C30D5800BC6513 /* TestJson.swift in Sources */,
 				9D187BAD23C6CFB500CDDBDA /* KLLayout.swift in Sources */,
@@ -406,15 +406,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SMLL9MTR8D;
 				INFOPLIST_FILE = KLine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccp.KLine.KLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -424,15 +427,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SMLL9MTR8D;
 				INFOPLIST_FILE = KLine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccp.KLine.KLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
