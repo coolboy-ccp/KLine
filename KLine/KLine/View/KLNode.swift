@@ -17,9 +17,9 @@ import UIKit
  */
 ///
 
-class KLineLayer {
+class KLNode {
     
-    static func layers(node: KLNode) -> [CAShapeLayer] {
+    static func layers(node: KLModel) -> [CAShapeLayer] {
         var layers = [klineLayer(node: node)]
         if let top = topLayer(node: node) {
             layers.append(top)
@@ -30,7 +30,7 @@ class KLineLayer {
         return layers
     }
     
-    private static func klineLayer(node: KLNode) -> CAShapeLayer {
+    private static func klineLayer(node: KLModel) -> CAShapeLayer {
         let layer = CAShapeLayer()
         layer.fillColor = node.color.cgColor
         let path = CGMutablePath()
@@ -42,18 +42,18 @@ class KLineLayer {
         return layer
     }
     
-    private static func bottomLayer(node: KLNode) -> CAShapeLayer? {
+    private static func bottomLayer(node: KLModel) -> CAShapeLayer? {
         if !node.isBottom { return nil }
         let isLeft = node.idx - node.start < node.end - node.idx
         let str = isLeft ? String(format: "%.2f->", node.data.bottom) : String(format: "<-%.2f", node.data.bottom)
         let layer = CAShapeLayer(at: .zero, color: .topBottom)
-        let path = str.path(font: .topBottom, point: CGPoint(x: node.bottomPoint.x - kl.unit.width / 2, y: -node.bottomPoint.y))
-        let moveX = isLeft ? -path.boundingBox.width : kl.unit.width / 2    
+        let path = str.path(font: .topBottom, point: CGPoint(x: node.bottomPoint.x - portrait.unit.width / 2, y: -node.bottomPoint.y))
+        let moveX = isLeft ? -path.boundingBox.width : portrait.unit.width / 2    
         layer.path = path.move(offset: CGPoint(x: moveX, y: -path.boundingBox.height))
         return layer
     }
         
-    private static func topLayer(node: KLNode) -> CAShapeLayer? {
+    private static func topLayer(node: KLModel) -> CAShapeLayer? {
         if !node.isTop { return nil }
         let isLeft = node.idx - node.start < node.end - node.idx
         let str = isLeft ? String(format: "%.2f->", node.data.top) : String(format: "<-%.2f", node.data.top)

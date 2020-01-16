@@ -9,7 +9,7 @@
 import UIKit
 
 
-class KLineTable: UIView {
+class KLTable: UIView {
     
     private var top: KLData!
     private var bottom: KLData!
@@ -19,28 +19,32 @@ class KLineTable: UIView {
     private var yPoints: [CGFloat] = []
     private var xLayer: CAShapeLayer?
     private var yLayer: CAShapeLayer?
-    private var yNoChange: Bool = false    
+    private var yNoChange: Bool = false
+    
+    private let lineTableHeight = portrait.lineHeight + portrait.lineInsetB + portrait.lineInsetT
     
     //table-------------------------
     private func drawTable() {
         let paths = CGMutablePath()
         // MA
         let maPath = CGMutablePath()
-        maPath.addRect(CGRect(x: 0, y: kl.vertical.topMargin, width: frame.width, height: kl.vertical.maTableHeight))
+        
+        maPath.addRect(CGRect(x: 0, y: portrait.padding, width: frame.width, height: lineTableHeight))
         for i in (1 ... .numberOfGridLines) {
             let path = CGMutablePath()
-            let y = kl.vertical.maTableHeight / CGFloat((.numberOfGridLines + 1)) * CGFloat(i) + kl.vertical.topMargin
+            let y = lineTableHeight / CGFloat((.numberOfGridLines + 1)) * CGFloat(i) + portrait.padding
             path.move(to: CGPoint(x: 0, y: y))
             path.addLine(to: CGPoint(x: frame.width, y: y))
             maPath.addPath(path.copy(dashingWithPhase: 0, lengths: [10, 3]))
             paths.addPath(maPath)
             yPoints.append(y)
         }
-        yPoints.append(kl.vertical.maTableHeight + kl.vertical.topMargin)
+        yPoints.append(lineTableHeight + portrait.padding)
         
         // VOL
         let volPath = CGMutablePath()
-        volPath.addRect(CGRect(x: 0, y: frame.height - kl.vertical.volTableHeight, width: frame.width, height: kl.vertical.volTableHeight))
+        
+        volPath.addRect(CGRect(x: 0, y: frame.height - portrait.volHeight, width: frame.width, height: portrait.volHeight))
         paths.addPath(volPath)
         
         let tableLayer = CAShapeLayer()
@@ -53,8 +57,9 @@ class KLineTable: UIView {
     
     //y-------------------------
     private func yCoordinates() -> [String] {
-        let topYValue = (kl.vertical.maHeight + kl.vertical.topInset) / maRatio + bottom.bottom
-        let bottomYValue = bottom.bottom - kl.vertical.bottomInset / maRatio
+        
+        let topYValue = (portrait.lineHeight + portrait.lineInsetT) / maRatio + bottom.bottom
+        let bottomYValue = bottom.bottom - portrait.lineInsetB / maRatio
         if Int.numberOfGridLines < 1 { return [] }
         let distance = topYValue - bottomYValue
         let padding = distance / CGFloat(Int.numberOfGridLines + 1)
@@ -80,11 +85,11 @@ class KLineTable: UIView {
     
     //x-------------------------
     private func drawXPoints() {
-        let extPoint = CGPoint(x: 0, y: -(kl.vertical.maTableHeight + kl.vertical.padding + kl.vertical.topMargin))
+        let extPoint = CGPoint(x: 0, y: -(lineTableHeight + portrait.xPadding + portrait.padding))
         let pth = last.timeStr.path(font: .coordinateX, point: extPoint)
         let pth1 = last.timeStr.path(font: .coordinateX, point: CGPoint(x: frame.width - pth.boundingBox.width - 5, y: extPoint.y))
         pth.addPath(pth1)
-        let ext = (kl.vertical.padding - pth.boundingBox.height) / 2.0
+        let ext = (portrait.xPadding - pth.boundingBox.height) / 2.0
         if self.xLayer == nil {
             self.xLayer = CAShapeLayer(at: CGPoint(x: 0, y: -ext), color: .coordinateX)
             self.layer.addSublayer(self.xLayer!)
@@ -125,44 +130,4 @@ class KLineTable: UIView {
     
 }
 
-extension CAShapeLayer {
-    convenience init(at point: CGPoint, color: UIColor) {
-        self.init()
-        self.fillColor = color.cgColor
-        self.position = point
-        self.isGeometryFlipped = true
-    }
-}
 
-extension String {
-    /*
-    * point.y需要取负值，因为镜像
-    */
-
-    func path(font: UIFont, point: CGPoint) -> CGMutablePath {
-        let attr = NSAttributedString(string: self, attributes: [.font : font])
-        let line = CTLineCreateWithAttributedString(attr)
-        let runs = CTLineGetGlyphRuns(line) as! [CTRun]
-        let letters = CGMutablePath()
-        for run in runs {
-            let attr = CTRunGetAttributes(run) as NSDictionary
-            let font = attr[kCTFontAttributeName as String] as! CTFont
-            let count = CTRunGetGlyphCount(run)
-            var paths = [CGPath]()
-            for index in 0 ..< count
-            {
-                let range = CFRangeMake(index, 1)
-                var glyph = CGGlyph()
-                CTRunGetGlyphs(run, range, &glyph)
-                var position = CGPoint()
-                CTRunGetPositions(run, range, &position)
-                if let letterPath = CTFontCreatePathForGlyph(font, glyph, nil) {
-                    let transform = CGAffineTransform(translationX: position.x + point.x, y: position.y + point.y)
-                    letters.addPath(letterPath, transform: transform)
-                    paths.append(letterPath)
-                }
-            }
-        }
-        return letters
-    }
-}

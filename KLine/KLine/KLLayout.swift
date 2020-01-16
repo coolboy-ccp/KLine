@@ -8,113 +8,172 @@
 
 import UIKit
 
+var portrait = KLPortrait()
+var landscape = KLLandscape()
 
-struct KLLayout {
-    enum Direction {
-        case portrait
-        case landspace
+struct KLPortrait: KLPortraitConvertible {}
+struct KLLandscape: KLLandscapeConvertible {}
+
+public protocol KLLayoutConvertible {
+    var headerTitleHeight: CGFloat { get }
+    var padding: CGFloat { get }
+    var lineInsetT: CGFloat { get }
+    var lineHeight: CGFloat { get }
+    var lineInsetB: CGFloat { get }
+    var xPadding: CGFloat { get }
+    var volInset: CGFloat { get }
+    var volHeight: CGFloat { get }
+    var marginH: CGFloat { get }
+    var unit: KLUnit { set get }
+    var unitMax: KLUnit { get }
+    var unitMin: KLUnit { get }
+}
+
+
+/*
+ _________________________________
+ |                                 |
+ |         headerTitleHeight       |
+ |_________________________________|
+ padding
+ _________________________________
+ |          lineInsetT             |
+ |              |                  |
+ |              |                  |
+ |          lineHeight             |
+ |              |                  |
+ |              |                  |
+ |          lineInsetB             |
+ ---------------------------------
+ xPadding
+ _________________________________
+ |           volInset              |
+ |              |                  |
+ |           volHeight             |
+ |              |                  |
+ ---------------------------------
+ 
+ -----|----------------------------|------marginH----|
+ 
+ */
+public protocol KLPortraitConvertible: KLLayoutConvertible {}
+
+
+private var unitPortrait = KLUnit(line: 5)
+public extension KLPortraitConvertible {
+
+    var headerTitleHeight: CGFloat {
+        return 35
     }
     
-    let vertical: KLVertical
-    var unit: KLUnit
-    var direction: Direction = .portrait
+    var padding: CGFloat {
+        return 20
+    }
     
-    static let inital = KLLayout(height: 0)
+    var lineInsetT: CGFloat {
+        return 20
+    }
     
-    init(height: CGFloat, direction: Direction = .portrait) {
-        switch direction {
-        case .portrait:
-            self.vertical = KLVertical.portrait(height: height)
-            self.unit = KLUnit.portait(line: 5)
-        case .landspace:
-            self.vertical = KLVertical.landscape(height: height)
-            self.unit = KLUnit.landscape(line: 10)
+    var lineHeight: CGFloat {
+        return 250
+    }
+    
+    var lineInsetB: CGFloat {
+        return 20
+    }
+    
+    var xPadding: CGFloat {
+        return 20
+    }
+    
+    var volInset: CGFloat {
+        return 20
+    }
+    
+    var volHeight: CGFloat {
+        return 70
+    }
+    
+    var marginH: CGFloat {
+        return 10
+    }
+    
+    var unit: KLUnit {
+        set {
+            unitPortrait = newValue
+        }
+        get {
+            return unitPortrait
         }
     }
     
-}
-
-/*
- portrait
-  ______________________________________________________________________
-            topMargin                                  |
-  ________________________________________             |
- |          topInset               |                   |
- |              |                  |                   |
- |              |                  |                   |
- |              |   maHeight       | maTableHeight     |
- |              |                  |                   |
- |              |                  |                   |
- |              |                  |                   |
- |          bottomInset            |                   |
-  -----------------------------------------            | height
-            padding                                    |
-  _________________________________________            |
- |           volInset              |                   |
- |              |                  |   volTableHeight  |
- |              |   volHeight      |                   |
- |              |                  |                   |
-  ---------------------------------                    |
-              bottomMargin                             |
-  --------------------------------------------------------------------------
- 
- landscape
- 
- */
-
-
-struct KLVertical {
-    let topMargin: CGFloat
-    let bottomMargin: CGFloat
-    let padding: CGFloat
-    
-    let topInset: CGFloat
-    let bottomInset: CGFloat
-    let height: CGFloat
-    let maHeight: CGFloat
-    let maTableHeight: CGFloat
-    
-    let volInset: CGFloat
-    let volTableHeight: CGFloat
-    let volHeight: CGFloat
-    //volBase是为了保证最高值和最低值差异过大，导致低值无法显示
-    let volBase: CGFloat
-    
-    //坐标转换
-    let maYBase: CGFloat
-    let volYbase: CGFloat
-    
-    fileprivate static let zero = KLVertical(height: 0, topMargin: 0, padding: 0, volTableHeight: 0, topInset: 0, bottomInset: 0, volInset: 0, bottomMargin: 0, volBase: 0)
-    
-    fileprivate static func portrait(height: CGFloat) -> KLVertical {
-        return KLVertical(height: height, topMargin: 20, padding: 20, volTableHeight: 70, topInset: 20, bottomInset: 20, volInset: 20, bottomMargin: 0, volBase: 0)
+    var unitMax: KLUnit {
+        return KLUnit(line: 15)
     }
     
-    fileprivate static func landscape(height: CGFloat) -> KLVertical {
-        return KLVertical(height: height, topMargin: 0, padding: 0, volTableHeight: 0, topInset: 20, bottomInset: 20, volInset: 0, bottomMargin: 0, volBase: 0)
-    }
-    
-    private init(height: CGFloat, topMargin: CGFloat, padding: CGFloat, volTableHeight: CGFloat, topInset: CGFloat, bottomInset: CGFloat, volInset: CGFloat, bottomMargin: CGFloat, volBase: CGFloat) {
-        self.height = height
-        self.topMargin = topMargin
-        self.padding = padding
-        self.volTableHeight = volTableHeight
-        self.topInset = topInset
-        self.bottomInset = bottomInset
-        self.volInset = volInset
-        self.bottomMargin = bottomMargin
-        self.volBase = volBase
-        
-        self.maTableHeight = height - topMargin - padding - volTableHeight
-        self.maHeight = maTableHeight - topInset - bottomInset
-        self.volHeight = volTableHeight - volInset
-        self.maYBase = maHeight + topMargin + topInset
-        self.volYbase = maYBase + bottomInset + padding + volInset + volHeight
-        
-        
+    var unitMin: KLUnit {
+        return KLUnit(line: 1)
     }
 }
 
+public protocol KLLandscapeConvertible: KLLayoutConvertible {}
+
+private var unitLandscape = KLUnit(line: 10)
+
+public extension KLLandscapeConvertible {
+    var headerTitleHeight: CGFloat {
+        return 35
+    }
+    
+    var padding: CGFloat {
+        return 20
+    }
+    
+    var lineInsetT: CGFloat {
+        return 20
+    }
+    
+    var lineHeight: CGFloat {
+        return 250
+    }
+    
+    var lineInsetB: CGFloat {
+        return 20
+    }
+    
+    var xPadding: CGFloat {
+        return 20
+    }
+    
+    var volInset: CGFloat {
+        return 20
+    }
+    
+    var volHeight: CGFloat {
+        return 70
+    }
+    
+    var marginH: CGFloat {
+        return 10
+    }
+    
+    var unit: KLUnit {
+        set {
+            unitLandscape = newValue
+        }
+        get {
+            return unitLandscape
+        }
+    }
+    
+    var unitMax: KLUnit {
+        return KLUnit(line: 30)
+    }
+    
+    var unitMin: KLUnit {
+        return KLUnit(line: 2)
+    }
+}
 
 /*
          | <--drew       |
@@ -128,63 +187,44 @@ struct KLVertical {
                           |gap
  */
 
-struct KLUnit {
+public struct KLUnit {
     let drew: CGFloat
     let line: CGFloat
     let padding: CGFloat
     let width: CGFloat
     let gap: CGFloat
     
-    private init(line: CGFloat, drew: CGFloat = 0.5, padding: CGFloat = 2) {
+    init(line: CGFloat, drew: CGFloat = 0.5, padding: CGFloat = 2) {
         self.line = line
         self.drew = drew
         self.padding = padding
         self.width = line + padding
         self.gap = (line - drew) / 2
     }
-    
-    
 }
 
 extension KLUnit: Comparable {
-    static func < (lhs: Self, rhs: Self) -> Bool {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
         return lhs.line < rhs.line
     }
     
-    static func <= (lhs: Self, rhs: Self) -> Bool {
+    public static func <= (lhs: Self, rhs: Self) -> Bool {
         return lhs.line <= rhs.line
     }
     
-    static func >= (lhs: Self, rhs: Self) -> Bool {
+    public static func >= (lhs: Self, rhs: Self) -> Bool {
         return lhs.line >= rhs.line
     }
 }
 
 extension KLUnit {
-    static func * (lhs: Self, rhs: CGFloat) -> Self {
+    public static func * (lhs: Self, rhs: CGFloat) -> Self {
         return KLUnit(line: lhs.line * rhs, drew: lhs.drew, padding: lhs.padding * rhs)
     }
     
-    static func *= (lhs: inout Self, rhs: CGFloat) {
+    public static func *= (lhs: inout Self, rhs: CGFloat) {
         lhs = lhs * rhs
     }
 }
 
-extension KLUnit {
-    static let zero = KLUnit(line: 0, drew: 0, padding: 0)
-    private(set) static var max = KLUnit.zero
-    private(set) static var min = KLUnit.zero
-    
-    fileprivate static func portait(line: CGFloat) -> Self {
-        max = KLUnit(line: 15)
-        min = KLUnit(line: 1)
-        return KLUnit(line: line)
-    }
-    
-    fileprivate static func landscape(line: CGFloat) -> Self {
-        max = KLUnit(line: 30)
-        min = KLUnit(line: 1)
-        return KLUnit(line: line)
-    }
-}
 

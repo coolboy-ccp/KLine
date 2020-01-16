@@ -8,16 +8,7 @@
 
 import UIKit
 
-extension CGPoint {
-    func move(x: CGFloat = 0, y: CGFloat = 0) -> CGPoint {
-        var pt = self
-        pt.x = self.x + x
-        pt.y = self.y + y
-        return pt
-    }
-}
-
-struct KLNode {
+struct KLModel {
     
     let idx: Int
     let color: UIColor
@@ -41,16 +32,16 @@ struct KLNode {
         self.start = start
         self.data = data
         self.end = end
-        self.x = width - CGFloat(idx + 1) * kl.unit.width
-        self.topPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.top, maBottom, maRatio))
-        self.bottomPoint = CGPoint(x: x + kl.unit.gap, y: yTransfer(data.bottom, maBottom, maRatio))
+        self.x = width - CGFloat(idx + 1) * portrait.unit.width
+        self.topPoint = CGPoint(x: x + portrait.unit.gap, y: yTransfer(data.top, maBottom, maRatio))
+        self.bottomPoint = CGPoint(x: x + portrait.unit.gap, y: yTransfer(data.bottom, maBottom, maRatio))
         self.volPoints = volPoints(data: data, x: x, volRatio: volRatio, volBottom: volBottom)
         self.maPoints = maPoints(data: data, maRatio: maRatio, maBottom: maBottom)
     }
     
     
     private func yTransfer(_ value: CGFloat, _ maBottom: CGFloat, _ maRatio: CGFloat) -> CGFloat {
-        return kl.vertical.maYBase - (value - maBottom) * maRatio
+        return portrait.padding + portrait.lineInsetT + portrait.lineHeight - (value - maBottom) * maRatio
     }
     
     private func maPoints(data: KLData, maRatio: CGFloat, maBottom: CGFloat) -> [CGPoint] {
@@ -62,27 +53,29 @@ struct KLNode {
         let closePT = close.y > open.y ? close : open
         return [
             openPt,
-            openPt.move(x: kl.unit.gap),
+            openPt.move(x: portrait.unit.gap),
             topPoint,
-            topPoint.move(x: kl.unit.drew),
-            openPt.move(x: kl.unit.drew + kl.unit.gap),
-            openPt.move(x: kl.unit.line),
-            closePT.move(x: kl.unit.line),
-            closePT.move(x: kl.unit.drew + kl.unit.gap),
-            bottomPoint.move(x: kl.unit.drew),
+            topPoint.move(x: portrait.unit.drew),
+            openPt.move(x: portrait.unit.drew + portrait.unit.gap),
+            openPt.move(x: portrait.unit.line),
+            closePT.move(x: portrait.unit.line),
+            closePT.move(x: portrait.unit.drew + portrait.unit.gap),
+            bottomPoint.move(x: portrait.unit.drew),
             bottomPoint,
-            closePT.move(x: kl.unit.gap),
+            closePT.move(x: portrait.unit.gap),
             closePT,
         ]
     }
     
     private func volPoints(data: KLData, x: CGFloat, volRatio: CGFloat, volBottom: CGFloat) -> [CGPoint] {
-        let vol = CGPoint(x: x, y: kl.vertical.volYbase - (data.vol - volBottom) * volRatio - kl.vertical.volBase)
+        //maYBase + bottomInset + padding + volInset + volHeight
+        let yBase = portrait.padding + portrait.lineInsetT + portrait.lineHeight + portrait.lineInsetB + portrait.xPadding + portrait.volInset + portrait.volHeight
+        let vol = CGPoint(x: x, y: yBase - (data.vol - volBottom) * volRatio)
         return [
             vol,
-            vol.move(x: kl.unit.line),
-            vol.move(x: kl.unit.line, y: kl.vertical.volYbase - vol.y),
-            vol.move(y: kl.vertical.volYbase - vol.y)
+            vol.move(x: portrait.unit.line),
+            vol.move(x: portrait.unit.line, y: yBase - vol.y),
+            vol.move(y: yBase - vol.y)
         ]
     }
 }

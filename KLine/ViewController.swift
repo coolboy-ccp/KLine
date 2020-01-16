@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        KL = KLineView(frame: CGRect(x: 10, y: 88, width: view.frame.width - 20, height: 400), datasource: KLData.from(json: jsonSource))
+        KL = KLineView(frame: CGRect(x: 10, y: 88, width: view.frame.width - 20, height: 400), datasource: KLData.datas(from:jsonSource))
         self.view.addSubview(KL)
     }
     

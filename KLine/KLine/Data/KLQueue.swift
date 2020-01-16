@@ -65,11 +65,11 @@ class KLQueue {
         }
     }
     
-    var nodes: [KLNode] {
-        maRatio = kl.vertical.maHeight / (bigMA.top - smallMA.bottom)
-        let volRatio: CGFloat = (kl.vertical.volHeight - kl.vertical.volBase) / (bigVol - smallVol)
+    var nodes: [KLModel] {
+        maRatio = portrait.lineHeight / (bigMA.top - smallMA.bottom)
+        let volRatio: CGFloat = portrait.volHeight / (bigVol - smallVol)
         return current.map {
-            return KLNode(data: $0, width: size.width, maRatio: maRatio, volRatio: volRatio, maBottom: smallMA.bottom, volBottom: smallVol, maTop: bigMA.top, start: current.first!.idx, end: current.last!.idx)
+            return KLModel(data: $0, width: size.width, maRatio: maRatio, volRatio: volRatio, maBottom: smallMA.bottom, volBottom: smallVol, maTop: bigMA.top, start: current.first!.idx, end: current.last!.idx)
         }
     }
             
