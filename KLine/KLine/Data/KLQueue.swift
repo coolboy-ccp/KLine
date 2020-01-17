@@ -16,16 +16,18 @@ class KLQueue {
     var maRatio: CGFloat = 0
     
     var current: [KLData] = []
+    var currentCount: Int = 0
     private var total: [KLData] = []
-    private var limitNum: Int = 0
+    var totalCount: Int = 0
     private var size: CGSize = .zero
     
     init(source: [KLData]) {
         self.total = source
+        self.totalCount = source.count
     }
     
-    func update(limitNum: Int, size: CGSize) {
-        self.limitNum = limitNum
+    func update(currentCount: Int, size: CGSize) {
+        self.currentCount = currentCount
         self.size = size
     }
     
@@ -39,7 +41,7 @@ class KLQueue {
     
     func extract(from idx: Int) {
         setup()
-        for i in (idx ..< limitNum + idx) {
+        for i in (idx ..< currentCount + idx) {
             let data = total[i]
             extractBigger(data)
             extractSmaller(data)

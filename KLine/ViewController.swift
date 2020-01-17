@@ -9,12 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var KL: KLineView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        KL = KLineView(frame: CGRect(x: 10, y: 88, width: view.frame.width - 20, height: 400), datasource: KLData.datas(from:jsonSource))
-        self.view.addSubview(KL)
+        let kline = KLContainer(superWidth: self.view.bounds.width, y: 88, data: KLCaculator.datas(from: jsonSource))
+        self.view.addSubview(kline)
     }
     
     

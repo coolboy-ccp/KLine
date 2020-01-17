@@ -26,7 +26,7 @@ class KLTable: UIView {
     //table-------------------------
     private func drawTable() {
         let paths = CGMutablePath()
-        // MA
+        // Main
         let maPath = CGMutablePath()
         
         maPath.addRect(CGRect(x: 0, y: portrait.padding, width: frame.width, height: lineTableHeight))
@@ -41,10 +41,10 @@ class KLTable: UIView {
         }
         yPoints.append(lineTableHeight + portrait.padding)
         
-        // VOL
+        // Sub
         let volPath = CGMutablePath()
-        
-        volPath.addRect(CGRect(x: 0, y: frame.height - portrait.volHeight, width: frame.width, height: portrait.volHeight))
+        let volTableHeight = portrait.volHeight + portrait.volInset
+        volPath.addRect(CGRect(x: 0, y: frame.height - volTableHeight, width: frame.width, height: volTableHeight))
         paths.addPath(volPath)
         
         let tableLayer = CAShapeLayer()

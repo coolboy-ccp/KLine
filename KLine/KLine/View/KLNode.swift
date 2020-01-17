@@ -8,15 +8,6 @@
 
 import UIKit
 
-/////
-//////
-
-
-/*
- 有一个用空间换时间的优化，当layer被绘制后，再次进行绘制时不从window中移除，只更新path
- */
-///
-
 class KLNode {
     
     static func layers(node: KLModel) -> [CAShapeLayer] {

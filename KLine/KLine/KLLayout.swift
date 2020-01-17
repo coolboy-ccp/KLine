@@ -15,7 +15,8 @@ struct KLPortrait: KLPortraitConvertible {}
 struct KLLandscape: KLLandscapeConvertible {}
 
 public protocol KLLayoutConvertible {
-    var headerTitleHeight: CGFloat { get }
+    var headerPeriodHeight: CGFloat { get }
+    var quotaHeight: CGFloat { get }
     var padding: CGFloat { get }
     var lineInsetT: CGFloat { get }
     var lineHeight: CGFloat { get }
@@ -33,7 +34,7 @@ public protocol KLLayoutConvertible {
 /*
  _________________________________
  |                                 |
- |         headerTitleHeight       |
+ |        headerPeriodHeight       |
  |_________________________________|
  padding
  _________________________________
@@ -62,9 +63,13 @@ public protocol KLPortraitConvertible: KLLayoutConvertible {}
 private var unitPortrait = KLUnit(line: 5)
 public extension KLPortraitConvertible {
 
-    var headerTitleHeight: CGFloat {
+    var headerPeriodHeight: CGFloat {
         return 35
     }
+    
+    var quotaHeight: CGFloat {
+         return 35
+     }
     
     var padding: CGFloat {
         return 20
@@ -121,8 +126,12 @@ public protocol KLLandscapeConvertible: KLLayoutConvertible {}
 private var unitLandscape = KLUnit(line: 10)
 
 public extension KLLandscapeConvertible {
-    var headerTitleHeight: CGFloat {
+    var headerPeriodHeight: CGFloat {
         return 35
+    }
+    
+    var quotaHeight: CGFloat {
+        return 70
     }
     
     var padding: CGFloat {
@@ -150,7 +159,7 @@ public extension KLLandscapeConvertible {
     }
     
     var volHeight: CGFloat {
-        return 70
+        return 50
     }
     
     var marginH: CGFloat {

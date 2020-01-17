@@ -25,15 +25,20 @@ class KLineTests: XCTestCase {
     }
 
     func testPerformanceExample() {
+        //let a = NSString(string: "a")
         // This is an example of a performance test case.
         self.measure {
+//
+//            for i in 0 ... 10000 {
+////                let b = a
+////                if a == "a" {
+////
+////                }
+//            }
             // Put the code you want to measure the time of here.
         }
     }
     
-    func testDecodeToResponse() {
-        assert(rsp != nil, "解析失败")
-        print(rsp)
-    }
+   
 
 }

@@ -8,8 +8,98 @@
 
 import UIKit
 
-extension KLData {
-    static func datas(from json: String, config: KLConfig = .default) -> [KLData] {
+
+class KLCaculator {
+    
+    static func boll(_ datas: [KLData]) {
+        let params = klConfig.boll_param
+        let reversed = Array(datas.reversed())
+        for (idx, data) in reversed.enumerated() {
+            if idx == 0 {
+                data.boll = KLBoll(ma: data.close, up: data.close, down: data.close)
+                continue
+            }
+            var period = klConfig.boll_period
+            if idx + 1 < period {
+                period = idx + 1
+            }
+            let start = idx + 1 - period
+            let end = idx + 1
+            let close: CGFloat = (start ..< end).reduce(0) { return $0 + datas[$1].close }
+            let ma = close / CGFloat(period)
+            let variance = (start ..< end).reduce(0) { return $0 + pow(datas[$1].close - ma, 2) }
+            let md = sqrt(variance / CGFloat(idx))
+            let up = ma + params * md
+            let down = ma - params * md
+            data.boll = KLBoll(ma: ma, up: up, down: down)
+        }
+    }
+    
+    static func macd(_ datas: [KLData]) {
+        let reversed = Array(datas.reversed())
+        let short = klConfig.macd_short
+        let long = klConfig.macd_long
+        let nine = klConfig.macd_Nine
+        for (idx, data) in reversed.enumerated() {
+            if idx == 0 {
+                data.macd = KLMacd(dif: 0, dea: 0, macd: 0, longEma: data.close, shortEma: data.close)
+                continue
+            }
+            let lastMacd = reversed[idx - 1].macd
+            let shortEma = lastMacd.shortEma * (short - 1) / (short + 1) + data.close / (short + 1) * 2
+            let longEma = lastMacd.longEma * (long - 1) / (long + 1) + data.close / (long + 1) * 2
+            let dif = shortEma - longEma
+            let dea = lastMacd.dea * (nine - 1) / (nine + 1) + dif * 2 / (nine + 1)
+            let macd = (dif - dea) * 2
+            data.macd = KLMacd(dif: dif, dea: dea, macd: macd, longEma: longEma, shortEma: shortEma)
+        }
+    }
+    
+    static func ma(_ datas: [KLData]) {
+        let reversed = Array(datas.reversed())
+        for (idx, data) in reversed.enumerated() {
+            data.ma7 = ma(datas, idx, period: klConfig.MA_p7)
+            data.ma30 = ma(datas, idx, period: klConfig.MA_p30)
+        }
+    }
+    
+    private static func ma(_ datas: [KLData], _ idx: Int, period: Int) -> CGFloat {
+        if idx + 1 < period { return 0 }
+        let start = idx + 1 - period
+        let end = idx + 1
+        return (start ..< end).reduce(0) { return datas[$1].close + $0 } / CGFloat(period)
+    }
+    
+    static func kdj(_ datas: [KLData]) {
+        
+        let reversed = Array(datas.reversed())
+        let period = klConfig.kdj_p
+        for (idx, data) in reversed.enumerated() {
+            if idx == 0 {
+                data.kdj = .zero
+                continue
+            }
+            var start = idx + 1 - period
+            start = start < 0 ? 0 : start
+            let end = idx + 1
+            let highLow = (start ..< end).reduce((0, CGFloat.greatestFiniteMagnitude)) { (rlt, i) -> (CGFloat, CGFloat) in
+                let high = rlt.0 > reversed[i].top ? rlt.0 : reversed[i].top
+                let low = rlt.1 < reversed[i].bottom ? rlt.1 : reversed[i].bottom
+                return (high, low)
+            }
+            let dif = highLow.0 - highLow.1
+            let rsv = dif == 0 ? 50 : (data.close - highLow.1) / dif
+            let lastKdj = datas[idx - 1].kdj
+            let k = lastKdj.k * (klConfig.kdj_p2 - 1) / klConfig.kdj_p2 + rsv / klConfig.kdj_p2
+            let d = lastKdj.d * (klConfig.kdj_p3 - 1) / klConfig.kdj_p3 + k / klConfig.kdj_p3
+            var j = k * 3 - d * 2
+            j = j > 100 ? 100 : j
+            data.kdj = KLKDJ(k: k, d: d, j: j)
+        }
+        
+    }
+    
+    static func datas(from json: String) -> [KLData] {
         guard let data = json.data(using: .utf8) else {
             return []
         }
@@ -17,102 +107,19 @@ extension KLData {
             let rsp = try JSONDecoder().decode(KLResponse.self, from: data)
             var idx: Int = 0
             let list = rsp.data.list
-            var datas = [KLData]()
-            var las: CGFloat = 0
-            var lam: CGFloat = 0
-            for index in 0 ..< list.count {
-                let idx = list.count - index - 1
-                let e = list[idx]
-                if e.count < 6 { continue }
-                let last = datas.last
-                func boll() -> KLBoll {
-                    if index == 0 {
-                        return KLBoll(ma: e[2]!, up: e[2]!, down: e[2]!)
-                    }
-                    let period = config.boll_period
-                    let drop = (idx / period) * period
-                    let periodDatas = datas.dropFirst(drop)
-                    let ma: CGFloat = periodDatas.reduce(0) { return $0 + $1.close } / CGFloat(period)
-                    let md: CGFloat = sqrt(periodDatas.reduce(0) { return $0 + pow($1.close - ma, 2) })
-                    return KLBoll(ma: ma, up: ma + config.boll_param * md, down: ma - config.boll_param * md)
+            let datas = list.compactMap { (e) -> KLData? in
+                if e.count < 6 { return nil }
+                defer {
+                    idx += 1
                 }
-                
-                func macd() -> KLMacd {
-                    if index == 0 {
-                        return KLMacd(dif: 0, dea: 0, macd: 0, longEma: e[2]!, shortEma: e[2]!)
-                    }
-                    let short = config.macd_short
-                    let long = config.macd_long
-                    let nine = config.macd_Nine
-                    let lastMacd = last!.macd
-                    let shortEma = lastMacd.shortEma * (short - 1) / (short + 1) + e[2]! / (short + 1) * 2
-                    let longEma = lastMacd.longEma * (long - 1) / (long + 1) + e[2]! / (long + 1) * 2
-                    let dif = shortEma - longEma
-                    let dea = lastMacd.dea * (nine - 1) / (nine + 1) + dif * 2 / (nine + 1)
-                    let macd = (dif - dea) * 2
-                    return KLMacd(dif: dif, dea: dea, macd: macd, longEma: longEma, shortEma: shortEma)
-                }
-                
-                func ma(_ period: Int) -> CGFloat {
-                    if idx < period - 1 { return 0 }
-                    let drop = (idx / period) * period
-                    let periodDatas = datas.dropFirst(drop)
-                    return periodDatas.reduce(0) { $0 + $1.close } / CGFloat(period)
-                }
-                
-                func rsi(_ period: Int) -> CGFloat {
-                    if index == 0 {
-                        return config.rsi_df
-                    }
-                    let dif = last!.close - e[2]!
-                    let max = dif > 0 ? dif : 0
-                    let smamax = (max + (CGFloat(period) - 1) * las) / CGFloat(period)
-                    let smaAbs = (abs(dif) + (CGFloat(period) - 1) * lam) / CGFloat(period)
-                    las = smamax
-                    lam = smaAbs
-                    if smaAbs == 0 { return config.rsi_df }
-                    return config.rsi_df * (1 - smamax / smaAbs)
-                }
-                
-                func kdj() -> KLKDJ {
-                    if index == 0 {
-                        return .zero
-                    }
-                    let period = config.kdj_p
-                    var high: CGFloat = 0
-                    var low: CGFloat = CGFloat.greatestFiniteMagnitude
-                    let close = e[2]!
-                    let drop = (idx / period) * period
-                    for data in datas.dropLast(drop) {
-                        if data.top > high {
-                            high = data.top
-                        }
-                        if data.bottom < low {
-                            low = data.bottom
-                        }
-                    }
-                    let dif = high - low
-                    let rsv = dif == 0 ? 50 : (close - low) / dif * 100
-                    let lastKdj = last!.kdj
-                    let k = lastKdj.k * (config.kdj_p2 - 1) / config.kdj_p2 + rsv / config.kdj_p2
-                    let d = lastKdj.d * (config.kdj_p3 - 1) / config.kdj_p3 + k / config.kdj_p3
-                    var j = k * 3 - d * 2
-                    j = j > 100 ? 100 : j
-                    return KLKDJ(k: k, d: d, j: j)
-                }
-                
-                let data = KLData(time: e[0]!, open: e[1]!, close: e[2]!, top: e[4]!, bottom: e[3]!, vol: e[5]!, idx: idx)
-                data.boll = boll()
-                data.macd = macd()
-                data.ma7 = ma(config.MA_p7)
-                data.ma30 = ma(config.MA_p30)
-                data.rsi1 = rsi(config.rsi_p1)
-                data.rsi2 = rsi(config.rsi_p2)
-                data.rsi3 = rsi(config.rsi_p3)
-                data.kdj = kdj()
-                datas.append(data)
+                return KLData(time: e[0]!, open: e[1]!, close: e[2]!, top: e[4]!, bottom: e[3]!, vol: e[5]!, idx: idx)
             }
-            return datas.reversed()
+            boll(datas)
+            macd(datas)
+            ma(datas)
+            kdj(datas)
+            return datas
+           
         }
         catch {
             return []

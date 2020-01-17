@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9D0AA9BA23C30D5800BC6513 /* TestJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D14DE2123C303F400EF30C1 /* TestJson.swift */; };
-		9D0AA9BC23C30F1700BC6513 /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BB23C30F1700BC6513 /* KLineView.swift */; };
 		9D0AA9BE23C316EC00BC6513 /* KLTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9BD23C316EC00BC6513 /* KLTable.swift */; };
 		9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0AA9C323C333B800BC6513 /* KLData.swift */; };
 		9D0CBB3523CD64AD009B263E /* KLHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0CBB3423CD64AD009B263E /* KLHeader.swift */; };
@@ -21,6 +20,10 @@
 		9D7492E523BF3DE90078A6C5 /* KLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7492E423BF3DE90078A6C5 /* KLineTests.swift */; };
 		9D74943E23BF5A040078A6C5 /* KLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D74943D23BF5A040078A6C5 /* KLModel.swift */; };
 		9D74944023BF5AAE0078A6C5 /* KLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D74943F23BF5AAE0078A6C5 /* KLNode.swift */; };
+		9DA5429D23D1544B00EFC0D0 /* KLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5429A23D150D200EFC0D0 /* KLConfig.swift */; };
+		9DA5429F23D19CC200EFC0D0 /* KLMarkLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5429E23D19CC200EFC0D0 /* KLMarkLine.swift */; };
+		9DA542A123D1A7EB00EFC0D0 /* KLQuotaLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA542A023D1A7EB00EFC0D0 /* KLQuotaLine.swift */; };
+		9DA542A323D1A85900EFC0D0 /* KLGusture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA542A223D1A85900EFC0D0 /* KLGusture.swift */; };
 		9DFABE6423C425B000702FB1 /* KLQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFABE6323C425B000702FB1 /* KLQueue.swift */; };
 		9DFABE6623C4266500702FB1 /* KLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFABE6523C4266500702FB1 /* KLConstant.swift */; };
 		9DFE66C923D01E45006C21E5 /* KLCaculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE66C823D01E45006C21E5 /* KLCaculator.swift */; };
@@ -40,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D0AA9BB23C30F1700BC6513 /* KLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLineView.swift; sourceTree = "<group>"; };
 		9D0AA9BD23C316EC00BC6513 /* KLTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLTable.swift; sourceTree = "<group>"; };
 		9D0AA9C323C333B800BC6513 /* KLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLData.swift; sourceTree = "<group>"; };
 		9D0CBB3423CD64AD009B263E /* KLHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLHeader.swift; sourceTree = "<group>"; };
@@ -58,6 +60,10 @@
 		9D7492E623BF3DE90078A6C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D74943D23BF5A040078A6C5 /* KLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLModel.swift; sourceTree = "<group>"; };
 		9D74943F23BF5AAE0078A6C5 /* KLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLNode.swift; sourceTree = "<group>"; };
+		9DA5429A23D150D200EFC0D0 /* KLConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLConfig.swift; sourceTree = "<group>"; };
+		9DA5429E23D19CC200EFC0D0 /* KLMarkLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLMarkLine.swift; sourceTree = "<group>"; };
+		9DA542A023D1A7EB00EFC0D0 /* KLQuotaLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLQuotaLine.swift; sourceTree = "<group>"; };
+		9DA542A223D1A85900EFC0D0 /* KLGusture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLGusture.swift; sourceTree = "<group>"; };
 		9DFABE6323C425B000702FB1 /* KLQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLQueue.swift; sourceTree = "<group>"; };
 		9DFABE6523C4266500702FB1 /* KLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLConstant.swift; sourceTree = "<group>"; };
 		9DFE66C823D01E45006C21E5 /* KLCaculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KLCaculator.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 		9DFE66C623D01E0B006C21E5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9DA5429A23D150D200EFC0D0 /* KLConfig.swift */,
 				9DFABE6323C425B000702FB1 /* KLQueue.swift */,
 				9D74943D23BF5A040078A6C5 /* KLModel.swift */,
 				9D0AA9C323C333B800BC6513 /* KLData.swift */,
@@ -152,12 +159,14 @@
 		9DFE66C723D01E22006C21E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9D0AA9BB23C30F1700BC6513 /* KLineView.swift */,
 				9D74943F23BF5AAE0078A6C5 /* KLNode.swift */,
 				9D0CBB3423CD64AD009B263E /* KLHeader.swift */,
 				9D0AA9BD23C316EC00BC6513 /* KLTable.swift */,
 				9DFE66CC23D05872006C21E5 /* KLine.swift */,
 				9DFE66CE23D0594D006C21E5 /* KLContainer.swift */,
+				9DA5429E23D19CC200EFC0D0 /* KLMarkLine.swift */,
+				9DA542A023D1A7EB00EFC0D0 /* KLQuotaLine.swift */,
+				9DA542A223D1A85900EFC0D0 /* KLGusture.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -269,16 +278,19 @@
 				9D7492CE23BF3DE50078A6C5 /* AppDelegate.swift in Sources */,
 				9D0CBB3523CD64AD009B263E /* KLHeader.swift in Sources */,
 				9DFABE6423C425B000702FB1 /* KLQueue.swift in Sources */,
+				9DA5429D23D1544B00EFC0D0 /* KLConfig.swift in Sources */,
 				9DFE66CF23D0594D006C21E5 /* KLContainer.swift in Sources */,
 				9DFABE6623C4266500702FB1 /* KLConstant.swift in Sources */,
 				9D0AA9C423C333B800BC6513 /* KLData.swift in Sources */,
+				9DA5429F23D19CC200EFC0D0 /* KLMarkLine.swift in Sources */,
 				9DFE66CB23D03E85006C21E5 /* KLUtils.swift in Sources */,
 				9DFE66CD23D05872006C21E5 /* KLine.swift in Sources */,
 				9D74944023BF5AAE0078A6C5 /* KLNode.swift in Sources */,
 				9D0AA9BA23C30D5800BC6513 /* TestJson.swift in Sources */,
+				9DA542A323D1A85900EFC0D0 /* KLGusture.swift in Sources */,
 				9DFE66C923D01E45006C21E5 /* KLCaculator.swift in Sources */,
 				9D187BAD23C6CFB500CDDBDA /* KLLayout.swift in Sources */,
-				9D0AA9BC23C30F1700BC6513 /* KLineView.swift in Sources */,
+				9DA542A123D1A7EB00EFC0D0 /* KLQuotaLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
